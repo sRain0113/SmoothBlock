@@ -1,0 +1,112 @@
+﻿:root{
+    --transition_speed: 0.25s;
+    --rotate_angle: 45deg;
+}
+* {
+    padding: 0;
+    margin: 0;
+}
+header {
+    height: 80px;
+    width: 100% ;
+    position: relative; /*用於定位，且固定*/
+}
+    header ul {
+        position: absolute;
+        right: 5px;
+        top: 0px;
+        line-height: 80px;
+    }
+    header li {
+        display: inline;
+        margin-right: 3vw;
+    }
+    header a {
+        color: rgb(255, 255, 255, 0.5);
+        text-decoration: none;
+        border: 1px solid #8470ff;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+
+        header a:hover {
+            color: white;
+            text-decoration: none;
+            border: 1px solid #8470ff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+h1 {
+    color: white;
+    position: absolute;
+    left: 20px;
+    top: 0px;
+    line-height: 80px;
+    background-image: url("../Image/title.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 240px;
+
+}
+body {
+    background-color: #252525;
+    color: #fffce7;
+}
+
+.box {
+    width: 200px;
+    height: 200px;
+    background-color: #ffcb3c;
+    margin: 200px auto; /* 置中顯示 */
+    transition: transform var(--transition_speed) ease-in 0s, background-color var(--transition_speed) ease-in 0s;
+    cursor: pointer;
+    position: relative;
+    /* 新增：處理文字置中的樣式 */
+    display: flex; /* 開啟彈性佈局 */
+    justify-content: center; /* 水平置中 */
+    align-items: center; /* 垂直置中 */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1)
+}
+    /* 預設文字樣式 */
+    .box span {
+        position: absolute; /* 疊在一起 */
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        font-family: Arial;
+    }
+/* 初始狀態：2026 隱藏 */
+.text-2026 {
+    opacity: 0;
+}
+.box:hover {
+    transform: rotate(var(--rotate_angle)) scale(1.2);
+    background-color: #e74c3c;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5)
+}
+        /* 2. 2025 變透明，並逆旋轉 45 度來抵消方塊的旋轉 */
+        .box:hover .text-2025 {
+            opacity: 0;
+            transform: rotate(calc(var(--rotate_angle) * -1));
+            transition-delay: 0s;
+        }
+        /* 3. 2026 變現身，並逆旋轉 45 度保持水平 */
+        .box:hover .text-2026 {
+            opacity: 1;
+            transform: rotate(calc(var(--rotate_angle) * -1)) scale(1.2);
+            transition-delay: var(--transition_speed);
+        }
+/* --- 當滑鼠移開時 (恢復原狀) --- */
+
+/* 2026 立即消失 */
+.box .text-2026 {
+    transition-delay: 0s;
+}
+
+/* 2025 等方塊轉回來再顯現 */
+.box .text-2025 {
+    /* 假設轉回來也是 0.5 秒，這裡就延遲 0.5 秒 */
+    transition-delay: var(--transition_speed);
+}
